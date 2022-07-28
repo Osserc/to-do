@@ -1,85 +1,80 @@
+import { allTasks, createTask } from "../buildTask"
 
 const list = document.getElementById(`task-list`)
 
-function showTask() {
-    list.append(buildTask())
+function showTaskAll() {
+    allTasks.forEach(task => {
+        showTask(task)
+    });
 }
 
-function buildTask() {
-    const task = document.createElement(`div`)
-    task.classList.add(`col-md-5`, `col-12`, `card`, `border`, `border-3`, `shadow`, `px-0`)
-    task.append(buildHeader(), buildBody())
-    return task
+function showTask(task) {
+    list.append(buildTask(task))
 }
 
-function buildHeader() {
+function buildTask(task) {
+    const singleTask = document.createElement(`div`)
+    singleTask.classList.add(`col-md-5`, `col-12`, `card`, `border`, `border-3`, `shadow`, `px-0`)
+    singleTask.append(buildHeader(task), buildBody(task))
+    return singleTask
+}
+
+function buildHeader(task) {
     const header = document.createElement(`div`)
     header.classList.add(`card-header`, `d-flex`, `justify-content-between`, `align-items-center`, `text-bg-primary`, `border-bottom`, `border-2`)
-    header.append(buildTitle(), buildDeleteButton())
+    header.append(buildTitle(task.title), buildDeleteButton(task.id))
     return header
 }
 
-function buildTitle() {
-    const title = document.createElement(`div`)
-    title.innerHTML = `Buy wood`
-    return title
+function buildTitle(title) {
+    const taskTitle = document.createElement(`div`)
+    taskTitle.innerHTML = title
+    return taskTitle
 }
 
-function buildDeleteButton() {
+function buildDeleteButton(id) {
     const closeButton = document.createElement(`button`)
+    closeButton.dataset.taskId = id
     closeButton.classList.add(`btn-close`)
     return closeButton
 }
 
-function buildBody() {
+function buildBody(task) {
     const body = document.createElement(`div`)
     body.classList.add(`card-body`, `d-flex`, `justify-content-between`, `align-items-center`, `text-bg-secondary`, `py-2`)
-    body.append(buildCheckmark(), buildUrgency(), buildEditButton())
+    body.append(buildCheckmark(task.id), buildUrgency(task.urgency), buildEditButton(task.id))
     return body
 }
 
-function buildCheckmark() {
+function buildCheckmark(id) {
     const formCheck = document.createElement(`div`)
     formCheck.classList.add(`form-check`, `m-0`)
     const checkButton = document.createElement(`input`)
     checkButton.classList.add(`form-check-input`)
     checkButton.type = `checkbox`
     checkButton.value = ``
-    checkButton.id = `check-button-1`
+    checkButton.id = `check-button-${id}`
     const checkLabel = document.createElement(`label`)
     checkLabel.classList.add(`form-check-label`)
-    checkLabel.setAttribute(`for`, `check-button-1`)
+    checkLabel.setAttribute(`for`, `check-button-${id}`)
+    checkLabel.innerHTML = `Done`
     formCheck.append(checkButton, checkLabel)
     return formCheck
 }
 
-function buildUrgency() {
-    const urgency = document.createElement(`div`)
-    urgency.classList.add(`fw-bold`, `fs-5`, `text-danger`)
-    urgency.innerHTML = `Urgent`
-    return urgency
+function buildUrgency(urgency) {
+    const urgencyLevel = document.createElement(`div`)
+    urgencyLevel.classList.add(`fw-bold`, `fs-5`, `text-danger`)
+    urgencyLevel.innerHTML = `${urgency}`
+    return urgencyLevel
 }
 
-function buildEditButton() {
+function buildEditButton(id) {
     const editButton = document.createElement(`button`)
+    editButton.dataset.taskId = id
     editButton.classList.add(`btn`, `btn-primary`)
     editButton.innerHTML = `Edit`
     return editButton
 }
 
-showTask()
-
-// <div class="col-md-5 col-12 card border border-3 shadow px-0">
-//     <div class="card-header d-flex justify-content-between align-items-center text-bg-primary border-bottom border-2">
-//         <div class="title">Buy wood</div>
-//         <button class="btn-close"></button>
-//     </div>
-//     <div class="card-body d-flex justify-content-between align-items-center text-bg-secondary py-2">
-//         <div class="form-check m-0">
-//             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-//             <label class="form-check-label" for="flexCheckDefault">Done</label>
-//         </div>
-//         <div class="fw-bold fs-5 text-danger">Urgent</div>
-//         <button class="btn btn-primary">Edit</button>
-//     </div>
-// </div>
+showTaskAll()
