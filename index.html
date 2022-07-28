@@ -7,23 +7,34 @@
     <link rel="stylesheet" href="./main.css">
     <title>To-do</title>
 </head>
-<body class="bg-secondary">
+<body style="background-color: silver;">
     <header class="d-flex justify-content-between align-items-center fs-5 p-2 text-bg-primary border-bottom shadow">
         <button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#projectList">All projects</button>
         <h1 class="m-0 fw-bold">Stuff to do!</h1>
         <button class="btn btn-info invisible d-none d-md-block" type="button">All projects</button>
     </header>
 
-    <br>
-
     <div class="container-fluid row m-0 me-5">
-        <div class="row row-cols-md-2 border p-0 m-0">
-            <div class="col-md-6 col-12">d</div>
-            <div class="col-md-6 col-12">d</div>
-            <div class="col-md-6 col-12">d</div>
-            <div class="col-md-6 col-12">d</div>
-            <div class="col-md-6 col-12">d</div>
-            <div class="col-md-6 col-12">d</div>
+        <div class="row justify-content-evenly gy-3 p-0 m-0">
+            <div class="col-md-5 col-12 card border border-3 shadow px-0">
+                <div class="card-header d-flex justify-content-between align-items-center text-bg-primary border-bottom border-2">
+                    <div class="title">Buy wood</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <div class="card-body d-flex justify-content-between align-items-center text-bg-secondary py-2">
+                    <div class="form-check m-0">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">Done</label>
+                    </div>
+                    <div class="fw-bold fs-5 text-danger">Urgent</div>
+                    <button class="btn btn-primary">Edit</button>
+                </div>
+            </div>
+            <div class="col-md-5 col-12 card">d</div>
+            <div class="col-md-5 col-12 card">d</div>
+            <div class="col-md-5 col-12 card">d</div>
+            <div class="col-md-5 col-12 card">d</div>
+            <div class="col-md-5 col-12 card">d</div>
         </div>
     </div>
 
