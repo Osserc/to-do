@@ -7,9 +7,26 @@
     <link rel="stylesheet" href="./main.css">
     <title>To-do</title>
 </head>
-<body>
-    <header class="d-flex justify-content-center align-items-center fs-5 p-2 text-bg-primary"><h1 class="m-0 fw-bold">Stuff to do!</h1></header>
+<body class="bg-secondary">
+    <header class="d-flex justify-content-between align-items-center fs-5 p-2 text-bg-primary border-bottom shadow">
+        <button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#projectList">All projects</button>
+        <h1 class="m-0 fw-bold">Stuff to do!</h1>
+        <button class="btn btn-info invisible" type="button">All projects</button>
+    </header>
+    <br>
 
+    <div class="container-fluid row m-0 me-5">
+        <div class="row row-cols-md-2 border p-0 m-0">
+            <div class="col-md-6 col-12">d</div>
+            <div class="col-md-6 col-12">d</div>
+            <div class="col-md-6 col-12">d</div>
+            <div class="col-md-6 col-12">d</div>
+            <div class="col-md-6 col-12">d</div>
+            <div class="col-md-6 col-12">d</div>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" id="projectList">ds</div>
 
     <script src="./main.js"></script>
 </body>
