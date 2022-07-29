@@ -1,60 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./main.css">
-    <script src="./main.js" defer></script>
-    <title>To-do</title>
-</head>
-<body style="background-color: silver;">
-    <header class="d-flex justify-content-between align-items-center fs-5 p-2 text-bg-primary border-bottom shadow">
-        <button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#projectList">All projects</button>
-        <h1 class="m-0 fw-bold">Stuff to do!</h1>
-        <button class="btn btn-info invisible d-none d-md-block" type="button">All projects</button>
-    </header>
-
-    <div class="container-fluid d-flex flex-column justify-content-center align-items-center card border border-3 w-75 px-0 mt-3 ">
-        <h3 class="card-header row justify-content-between w-100 text-bg-info border-bottom border-2">
-            <div class="col-12 text-light fw-bold text-center">Due date</div>
-            <div class="col-md-5 col-12 text-light fw-bold text-center text-md-start">Current project title</div>
-            <div class="col-md-5 col-12 text-light fw-bold text-center text-md-end">Priority level</div>
-        </h3>
-        <div class="fs-5">
-            Task description
-        </div>
-    </div>
-
-    <div class="container-fluid row m-0 me-5">
-        <div class="row justify-content-evenly gy-3 p-0 m-0" id="task-list">
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-end" id="projectList">
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-    </div>
-
-    <div class="card p-3" id="task-1-edit-container">
-        <form class="d-flex justify-content-center align-items-center gap-3" id="test">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./main.css">
+        <script src="./main.js" defer></script>
+        <title>To-do</title>
+    </head>
     
-            <div class="form-group d-flex flex-column justify-content-center align-items-center">
-                <label for="name">Task</label>
-                <input type="text" class="form-control" id="name" name="name">
-            </div>
-            <div class="form-group d-flex flex-column justify-content-center align-items-center">
-                <label for="select">Priority</label>
-                <select class="form-select" id="select" name="priority">
-                    <option value="Trivial">Trivial</option>
-                    <option value="Pressing">Pressing</option>
-                    <option value="Urgent">Urgent</option>
-                </select>
-            </div>
-            <button class="btn btn-primary">Confirm</button>
-        </form>
-    </div>
+    <body style="background-color: silver;">
+        <header class="d-flex justify-content-between align-items-center fs-5 p-2 text-bg-primary border-bottom shadow">
+            <button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#projectList">All projects</button>
+            <h1 class="m-0 fw-bold">Stuff to do!</h1>
+            <button class="btn btn-info invisible d-none d-md-block" type="button">All projects</button>
+        </header>
 
-    <!-- <script src="./main.js"></script> -->
-</body>
+        <div class="container-fluid d-flex flex-column justify-content-center align-items-center card border border-3 w-75 px-0 mt-3 ">
+            <h3 class="card-header row justify-content-between w-100 text-bg-info border-bottom border-2">
+                <div class="col-12 text-light fw-bold text-center">Due date</div>
+                <div class="col-md-5 col-12 text-light fw-bold text-center text-md-start">Current project title</div>
+                <div class="col-md-5 col-12 text-light fw-bold text-center text-md-end">Priority level</div>
+            </h3>
+            <div class="fs-5">
+                Task description
+            </div>
+        </div>
+
+        <div class="container-fluid row m-0 me-5">
+            <div class="row justify-content-evenly gy-3 p-0 m-0" id="task-list">
+
+            </div>
+        </div>
+
+        <div class="offcanvas offcanvas-end" id="projectList">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+    </body>
 </html>

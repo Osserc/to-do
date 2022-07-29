@@ -5,7 +5,6 @@ const list = document.getElementById(`task-list`)
 function showTaskAll() {
     allTasks.forEach(task => {
         showTask(task)
-        showEditForm(task.id)
     });
 }
 
@@ -108,6 +107,7 @@ function determinePriorityColor(priority) {
 function buildEditButton(id) {
     const editButton = document.createElement(`button`)
     editButton.dataset.taskId = id
+    editButton.id = `button-edit-${id}`
     editButton.classList.add(`btn`, `btn-primary`)
     editButton.innerHTML = `Edit`
     activateEditButton(editButton)
@@ -117,7 +117,7 @@ function buildEditButton(id) {
 function activateEditButton(button) {
     button.addEventListener(`click`, function() {
         showEditForm(button.dataset.taskId)
-    })
+    }, { once: true })
 }
 
 function showEditForm(id) {
@@ -217,6 +217,8 @@ function activateEditForm(id) {
         event.preventDefault()
         changeTaskData(event.target.elements)
         refreshTaskData(id)
+        document.getElementById(`task-${id}-edit-container`).remove()
+        activateEditButton(document.getElementById(`button-edit-${id}`))
     })
 }
 
@@ -232,9 +234,7 @@ function refreshTaskData(id) {
 function removeClassByPrefix(element, prefix) {
     var regx = new RegExp('\\b' + prefix + '.*?\\b', 'g')
     element.className = element.className.replace(regx, '')
- }
-
- // sample
+}
 
 function removeTask(id) {
     const taskToRemove = document.getElementById(`single-task-${id}`)
