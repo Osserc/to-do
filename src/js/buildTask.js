@@ -2,11 +2,11 @@ let allTasks = []
 
 const taskFactory = (title, priority, id, done = false) => {
 
-    const toggleTask = () => {
+    const toggleDone = () => {
         done = !done
     }
 
-    return { title, done, priority, id, toggleTask }
+    return { title, done, priority, id, toggleDone }
 }
 
 function createTask(title, priority) {

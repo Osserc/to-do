@@ -71,6 +71,7 @@ function buildCheckmarkButton(id) {
     checkButton.type = `checkbox`
     checkButton.value = ``
     checkButton.id = `check-button-${id}`
+    checkButton.addEventListener('change', allTasks[id].toggleDone)
     return checkButton
 }
 
