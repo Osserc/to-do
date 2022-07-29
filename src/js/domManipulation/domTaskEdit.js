@@ -1,6 +1,7 @@
-import { determinePriorityColor, activateEditButton } from "./domTaskShared"
+import { determinePriorityColor, activateEditButton, buttonSwapper } from "./domTaskShared"
 import { allTasks, changeTaskData } from "../buildTask"
 import { allProjects } from "../buildProject"
+import { buildEditButton } from "./domTask"
 
 function showEditForm(id) {
     const taskToEdit = document.getElementById(`single-task-${id}`)
@@ -101,11 +102,10 @@ function activateEditForm(id) {
         refreshTaskData(id)
         document.getElementById(`task-${id}-edit-container`).remove()
         const button = document.getElementById(`button-edit-${id}`)
-        button.removeEventListener('click', function() {
-            buttonSwapper(button, id)
-        }, { once: true })
-        button.innerHTML = `Edit`
-        activateEditButton(button)
+        button.replaceWith(buildEditButton(id))
+        // button.removeEventListener(`click`, buttonSwapper, { once: true })
+        // button.innerHTML = `Edit`
+        // activateEditButton(button)
     })
 }
 

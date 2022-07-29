@@ -117,4 +117,4 @@ function wipeTasks() {
 
 showTaskAll()
 
-export { showTaskAll, wipeTasks }
+export { showTaskAll, wipeTasks, buildEditButton }

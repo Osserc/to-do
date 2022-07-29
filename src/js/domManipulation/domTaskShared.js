@@ -37,4 +37,4 @@ function buttonSwapper(button, id) {
     button.innerHTML = `Edit`
 }
 
-export { determinePriorityColor, activateEditButton, swapEditButton }
+export { determinePriorityColor, activateEditButton, swapEditButton, buttonSwapper }

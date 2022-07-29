@@ -1,5 +1,6 @@
 import { allProjects, currentProject } from "../buildProject"
 import { showTaskAll, wipeTasks } from "./domTask"
+import { determinePriorityColor } from "./domTaskShared"
 
 const card = document.getElementById(`project-details`)
 
@@ -26,6 +27,30 @@ function buildProjectHeader() {
 }
 
 function buildProjectDate() {
+    const dueDate = document.createElement(`div`)
+    dueDate.classList.add(`col-12`, `text-light`, `fw-bold`, `text-center`)
+    dueDate.id = `project-${currentProject.id}-date`
+    dueDate.innerHTML = currentProject.dueDate
+    return dueDate
+}
+
+function buildProjectTitle() {
+    const title = document.createElement(`div`)
+    title.classList.add(`col-md-5`, `col-12`, `text-light`, `fw-bold`, `text-center`, `text-md-start`)
+    title.id = `project-${currentProject.id}-title`
+    title.innerHTML = currentProject.title
+    return title
+}
+
+function buildProjectPriority() {
+    const priority = document.createElement(`div`)
+    priority.classList.add(`col-md-5`, `col-12`, determinePriorityColor(currentProject.priority), `fw-bold`, `text-center`, `text-md-start`)
+    priority.id = `project-${currentProject.id}-priority`
+    priority.innerHTML = currentProject.priority
+    return priority
+}
+
+function buildProjectDescription() {
 
 }
 
