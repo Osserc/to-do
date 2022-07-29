@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./main.css">
+    <script src="./main.js" defer></script>
     <title>To-do</title>
 </head>
 <body style="background-color: silver;">
@@ -18,7 +19,7 @@
         <h3 class="card-header row justify-content-between w-100 text-bg-info border-bottom border-2">
             <div class="col-12 text-light fw-bold text-center">Due date</div>
             <div class="col-md-5 col-12 text-light fw-bold text-center text-md-start">Current project title</div>
-            <div class="col-md-5 col-12 text-light fw-bold text-center text-md-end">Urgency level</div>
+            <div class="col-md-5 col-12 text-light fw-bold text-center text-md-end">Priority level</div>
         </h3>
         <div class="fs-5">
             Task description
@@ -35,6 +36,25 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
 
-    <script src="./main.js"></script>
+    <div class="card p-3" id="task-1-edit-container">
+        <form class="d-flex justify-content-center align-items-center gap-3" id="test">
+    
+            <div class="form-group d-flex flex-column justify-content-center align-items-center">
+                <label for="name">Task</label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div>
+            <div class="form-group d-flex flex-column justify-content-center align-items-center">
+                <label for="select">Priority</label>
+                <select class="form-select" id="select" name="priority">
+                    <option value="Trivial">Trivial</option>
+                    <option value="Pressing">Pressing</option>
+                    <option value="Urgent">Urgent</option>
+                </select>
+            </div>
+            <button class="btn btn-primary">Confirm</button>
+        </form>
+    </div>
+
+    <!-- <script src="./main.js"></script> -->
 </body>
 </html>
