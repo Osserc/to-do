@@ -1,4 +1,6 @@
-let allTasks = []
+import { allProjects } from "./buildProject"
+
+let allTasks = allProjects[0].tasks
 
 const taskFactory = (title, priority, id, done = false) => {
 

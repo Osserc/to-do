@@ -1,5 +1,6 @@
 import { determinePriorityColor, activateEditButton } from "./domTaskShared"
 import { allTasks, changeTaskData } from "../buildTask"
+import { allProjects } from "../buildProject"
 
 function showEditForm(id) {
     const taskToEdit = document.getElementById(`single-task-${id}`)

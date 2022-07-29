@@ -1,4 +1,5 @@
 import { allTasks } from "../buildTask"
+import { allProjects } from "../buildProject"
 import { determinePriorityColor, activateEditButton } from "./domTaskShared"
 import { showEditForm } from "./domTaskEdit"
 
