@@ -6,6 +6,7 @@ import { showEditForm } from "./domTaskEdit"
 const list = document.getElementById(`task-list`)
 
 function showTaskAll() {
+    wipeTasks()
     allTasks.forEach(task => {
         showTask(task)
     });
@@ -110,6 +111,10 @@ function removeTask(id) {
     singleTask.remove()
 }
 
+function wipeTasks() {
+    list.replaceChildren()
+}
+
 showTaskAll()
 
-export { }
+export { showTaskAll, wipeTasks }
