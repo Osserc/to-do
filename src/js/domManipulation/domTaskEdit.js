@@ -103,9 +103,6 @@ function activateEditForm(id) {
         document.getElementById(`task-${id}-edit-container`).remove()
         const button = document.getElementById(`button-edit-${id}`)
         button.replaceWith(buildEditButton(id))
-        // button.removeEventListener(`click`, buttonSwapper, { once: true })
-        // button.innerHTML = `Edit`
-        // activateEditButton(button)
     })
 }
 

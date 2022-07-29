@@ -10,7 +10,9 @@ function showProjectsAll() {
 
 function showProject() {
     wipeProject()
-    card.append(buildProject())
+    buildProject().forEach((element) => {
+        card.append(element)
+    })
 }
 
 function buildProject() {
@@ -30,7 +32,7 @@ function buildProjectDate() {
     const dueDate = document.createElement(`div`)
     dueDate.classList.add(`col-12`, `text-light`, `fw-bold`, `text-center`)
     dueDate.id = `project-${currentProject.id}-date`
-    dueDate.innerHTML = currentProject.dueDate
+    dueDate.innerHTML = currentProject.dateFormatted()
     return dueDate
 }
 
@@ -44,19 +46,25 @@ function buildProjectTitle() {
 
 function buildProjectPriority() {
     const priority = document.createElement(`div`)
-    priority.classList.add(`col-md-5`, `col-12`, determinePriorityColor(currentProject.priority), `fw-bold`, `text-center`, `text-md-start`)
+    priority.classList.add(`col-md-5`, `col-12`, determinePriorityColor(currentProject.priority), `fw-bold`, `text-center`, `text-md-end`)
     priority.id = `project-${currentProject.id}-priority`
     priority.innerHTML = currentProject.priority
     return priority
 }
 
 function buildProjectDescription() {
-
+    const description = document.createElement(`div`)
+    description.classList.add(`fs-5`)
+    description.id = `project-${currentProject.id}-description`
+    description.innerHTML = currentProject.description
+    return description
 }
 
 function wipeProject() {
     card.replaceChildren()
 }
+
+showProject()
 
 /* <div class="container-fluid d-flex flex-column justify-content-center align-items-center card border border-3 w-75 px-0 mt-3" id="project-details">
     <h3 class="card-header row justify-content-between w-100 text-bg-info border-bottom border-2">
