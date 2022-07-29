@@ -83,9 +83,23 @@ function buildCheckmarkLabel(id) {
 
 function buildUrgency(urgency) {
     const urgencyLevel = document.createElement(`div`)
-    urgencyLevel.classList.add(`fw-bold`, `fs-5`, `text-danger`)
+    urgencyLevel.classList.add(`fw-bold`, `fs-5`, determineUrgencyColor(urgency))
     urgencyLevel.innerHTML = `${urgency}`
     return urgencyLevel
+}
+
+function determineUrgencyColor(urgency) {
+    switch (urgency) {
+        case `Trivial`:
+            return `text-success`
+            break
+        case `Pressing`:
+            return `text-warning`
+            break
+        case `Urgent`:
+            return `text-danger`
+            break
+    }
 }
 
 function buildEditButton(id) {
@@ -109,3 +123,5 @@ function removeTask(id) {
 }
 
 showTaskAll()
+
+export { determineUrgencyColor }
