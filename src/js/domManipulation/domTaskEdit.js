@@ -18,7 +18,7 @@ function buildEditCard(id) {
 function buildEditForm(id) {
     const form = document.createElement(`form`)
     form.id = `task-${id}-edit-form`
-    form.classList.add(`d-flex`, `justify-content-center`, `align-items-center`, `gap-3`)
+    form.classList.add(`d-flex`, `justify-content-between`, `align-items-center`, `gap-3`)
     form.append(buildEditFormHiddenField(id), buildEditFormTitle(id), buildEditFormPriority(id), buildEditFormButton())
     return form
 }
@@ -99,7 +99,12 @@ function activateEditForm(id) {
         changeTaskData(event.target.elements)
         refreshTaskData(id)
         document.getElementById(`task-${id}-edit-container`).remove()
-        activateEditButton(document.getElementById(`button-edit-${id}`))
+        const button = document.getElementById(`button-edit-${id}`)
+        button.removeEventListener('click', function() {
+            buttonSwapper(button, id)
+        }, { once: true })
+        button.innerHTML = `Edit`
+        activateEditButton(button)
     })
 }
 

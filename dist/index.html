@@ -8,7 +8,7 @@
         <script src="./main.js" defer></script>
         <title>To-do</title>
     </head>
-    
+
     <body style="background-color: silver;">
         <header class="d-flex justify-content-between align-items-center fs-5 p-2 text-bg-primary border-bottom shadow">
             <button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#projectList">All projects</button>
@@ -36,5 +36,8 @@
         <div class="offcanvas offcanvas-end" id="projectList">
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
+
+        <label for="endDate">Date</label>
+        <input id="endDate" class="form-control" type="date">
     </body>
 </html>

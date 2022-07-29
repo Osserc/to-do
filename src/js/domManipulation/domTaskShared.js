@@ -17,7 +17,24 @@ function determinePriorityColor(priority) {
 function activateEditButton(button) {
     button.addEventListener(`click`, function() {
         showEditForm(button.dataset.taskId)
+        swapEditButton(button, button.dataset.taskId)
     }, { once: true })
 }
 
-export { determinePriorityColor, activateEditButton }
+function swapEditButton(button, id) {
+    button.innerHTML = `Close`
+    button.addEventListener(`click`, function() {
+        buttonSwapper(button, id)
+    }, { once: true })
+}
+
+function buttonSwapper(button, id) {
+    const formEdit = document.getElementById(`task-${id}-edit-container`)
+    if (formEdit != null) {
+        formEdit.remove()
+    }
+    activateEditButton(button)
+    button.innerHTML = `Edit`
+}
+
+export { determinePriorityColor, activateEditButton, swapEditButton }

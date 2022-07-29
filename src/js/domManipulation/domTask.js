@@ -103,6 +103,12 @@ function buildEditButton(id) {
     return editButton
 }
 
+function removeTask(id) {
+    const singleTask = document.getElementById(`single-task-${id}`)
+    allTasks[id] = null
+    singleTask.remove()
+}
+
 showTaskAll()
 
 export { }
