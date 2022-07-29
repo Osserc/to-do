@@ -1,4 +1,4 @@
-import { allTasks, createTask } from "../buildTask"
+import { allTasks } from "../buildTask"
 
 const list = document.getElementById(`task-list`)
 
@@ -14,7 +14,9 @@ function showTask(task) {
 
 function buildTask(task) {
     const singleTask = document.createElement(`div`)
+    singleTask.dataset.taskId = task.id
     singleTask.classList.add(`col-md-5`, `col-12`, `card`, `border`, `border-3`, `shadow`, `px-0`)
+    singleTask.id = `single-task-${task.id}`
     singleTask.append(buildHeader(task), buildBody(task))
     return singleTask
 }
@@ -36,7 +38,15 @@ function buildDeleteButton(id) {
     const closeButton = document.createElement(`button`)
     closeButton.dataset.taskId = id
     closeButton.classList.add(`btn-close`)
+    activateDeleteButton(closeButton)
     return closeButton
+}
+
+function activateDeleteButton(button) {
+    button.addEventListener(`click`, function() {
+        removeTask(button.dataset.taskId)
+        allTasks[button.dataset.taskId] = null
+    })
 }
 
 function buildBody(task) {
@@ -50,16 +60,25 @@ function buildCheckmark(id) {
     const formCheck = document.createElement(`div`)
     formCheck.classList.add(`form-check`, `m-0`)
     const checkButton = document.createElement(`input`)
+    formCheck.append(buildCheckmarkButton(id), buildCheckmarkLabel(id))
+    return formCheck
+}
+
+function buildCheckmarkButton(id) {
+    const checkButton = document.createElement(`input`)
     checkButton.classList.add(`form-check-input`)
     checkButton.type = `checkbox`
     checkButton.value = ``
     checkButton.id = `check-button-${id}`
+    return checkButton
+}
+
+function buildCheckmarkLabel(id) {
     const checkLabel = document.createElement(`label`)
     checkLabel.classList.add(`form-check-label`)
     checkLabel.setAttribute(`for`, `check-button-${id}`)
     checkLabel.innerHTML = `Done`
-    formCheck.append(checkButton, checkLabel)
-    return formCheck
+    return checkLabel
 }
 
 function buildUrgency(urgency) {
@@ -74,7 +93,19 @@ function buildEditButton(id) {
     editButton.dataset.taskId = id
     editButton.classList.add(`btn`, `btn-primary`)
     editButton.innerHTML = `Edit`
+    activateEditButton(editButton)
     return editButton
+}
+
+function activateEditButton(button) {
+    button.addEventListener(`click`, function() {
+        // to do
+    })
+}
+
+function removeTask(id) {
+    const taskToRemove = document.getElementById(`single-task-${id}`)
+    list.removeChild(taskToRemove)
 }
 
 showTaskAll()

@@ -1,6 +1,6 @@
 let allTasks = []
 
-const taskFactory = (title, urgency, id = 0, done = false) => {
+const taskFactory = (title, urgency, id, done = false) => {
 
     const toggleTask = () => {
         done = !done
@@ -10,15 +10,15 @@ const taskFactory = (title, urgency, id = 0, done = false) => {
 }
 
 function createTask(title, urgency) {
-    allTasks.push(taskFactory(title, urgency, allTasks.length - 1))
+    allTasks.push(taskFactory(title, urgency, allTasks.length))
 }
 
 createTask(`Buy wood`, `Urgent`)
 createTask(`Repair workbench`, `Urgent`)
-createTask(`Assemble tools`, `Urgent`)
-createTask(`Get back planer`, `Urgent`)
-createTask(`Put away ladder`, `Urgent`)
-createTask(`Prepare snake juice`, `Urgent`)
-createTask(`Make chicharrones`, `Urgent`)
+createTask(`Assemble tools`, `Trivial`)
+createTask(`Get back planer`, `Pressing`)
+createTask(`Put away ladder`, `Pressing`)
+createTask(`Prepare snake juice`, `Trivial`)
+createTask(`Make chicharrones`, `Trivial`)
 
-export { allTasks, createTask }
+export { allTasks }
