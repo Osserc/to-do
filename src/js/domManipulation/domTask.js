@@ -54,7 +54,7 @@ function activateDeleteButton(button) {
 function buildBody(task) {
     const body = document.createElement(`div`)
     body.classList.add(`card-body`, `d-flex`, `justify-content-between`, `align-items-center`, `text-bg-secondary`, `py-2`)
-    body.append(buildCheckmark(task.id), buildPriority(task.priority), buildEditButton(task.id))
+    body.append(buildCheckmark(task.id), buildPriority(task.priority, task.id), buildEditButton(task.id))
     return body
 }
 
@@ -83,9 +83,10 @@ function buildCheckmarkLabel(id) {
     return checkLabel
 }
 
-function buildPriority(priority) {
+function buildPriority(priority, id) {
     const priorityLevel = document.createElement(`div`)
     priorityLevel.classList.add(`fw-bold`, `fs-5`, determinePriorityColor(priority))
+    priorityLevel.id = `task-priority-${id}`
     priorityLevel.innerHTML = `${priority}`
     return priorityLevel
 }
@@ -222,7 +223,18 @@ function activateEditForm(id) {
 function refreshTaskData(id) {
     const title = document.getElementById(`task-title-${id}`)
     title.innerHTML = allTasks[id].title
+    const priority = document.getElementById(`task-priority-${id}`)
+    removeClassByPrefix(priority, `text-`)
+    priority.classList.add(determinePriorityColor(allTasks[id].priority))
+    priority.innerHTML = `${allTasks[id].priority}`
 }
+
+function removeClassByPrefix(element, prefix) {
+    var regx = new RegExp('\\b' + prefix + '.*?\\b', 'g')
+    element.className = element.className.replace(regx, '')
+ }
+
+ // sample
 
 function removeTask(id) {
     const taskToRemove = document.getElementById(`single-task-${id}`)
