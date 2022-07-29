@@ -15,16 +15,12 @@ function createTask(title, priority) {
 
 function changeTaskData(elements) {
     let values = collectValues(elements)
-    if (values.name == ``) {
-        console.log(values)
-    } else {
-        substituteTaskData(values)
-    }
+    substituteTaskData(values)
 }
 
 function collectValues(elements) {
     let values = []
-    values[`${elements.name.name}`] = elements.name.value
+    values[`${elements.title.name}`] = elements.title.value
     values[`${elements.priority.name}`] = elements.priority.value
     values[`${elements.taskId.name}`] = elements.taskId.value
     return values
@@ -32,7 +28,9 @@ function collectValues(elements) {
 
 function substituteTaskData(values) {
     let singleTask = allTasks[values.taskId]
-    singleTask.name = values.name
+    if (values.title != ``) {
+        singleTask.title = values.title
+    }
     singleTask.priority = values.priority
 }
 

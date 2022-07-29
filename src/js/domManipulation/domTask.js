@@ -25,12 +25,13 @@ function buildTask(task) {
 function buildHeader(task) {
     const header = document.createElement(`div`)
     header.classList.add(`card-header`, `d-flex`, `justify-content-between`, `align-items-center`, `text-bg-primary`, `border-bottom`, `border-2`)
-    header.append(buildTitle(task.title), buildDeleteButton(task.id))
+    header.append(buildTitle(task.title, task.id), buildDeleteButton(task.id))
     return header
 }
 
-function buildTitle(title) {
+function buildTitle(title, id) {
     const taskTitle = document.createElement(`div`)
+    taskTitle.id = `task-title-${id}`
     taskTitle.innerHTML = title
     return taskTitle
 }
@@ -156,8 +157,9 @@ function buildEditFormTitleLabel(id) {
 
 function buildEditFormTitleInput(id) {
     const formTitleInput = document.createElement(`input`)
-    formTitleInput.setAttribute(`name`, `name`)
+    formTitleInput.setAttribute(`name`, `title`)
     formTitleInput.setAttribute(`type`, `text`)
+    formTitleInput.setAttribute(`placeholder`, `Type to modify the title`)
     formTitleInput.classList.add(`form-control`)
     return formTitleInput
 }
@@ -213,7 +215,13 @@ function activateEditForm(id) {
     form.addEventListener(`submit`, function() {
         event.preventDefault()
         changeTaskData(event.target.elements)
+        refreshTaskData(id)
     })
+}
+
+function refreshTaskData(id) {
+    const title = document.getElementById(`task-title-${id}`)
+    title.innerHTML = allTasks[id].title
 }
 
 function removeTask(id) {
