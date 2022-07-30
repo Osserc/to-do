@@ -19,7 +19,7 @@ function showTask(task) {
 function buildTask(task) {
     const singleTask = document.createElement(`div`)
     singleTask.dataset.taskId = task.id
-    singleTask.classList.add(`col-md-5`, `col-12`, `card`, `border`, `border-3`, `shadow`, `px-0`)
+    singleTask.classList.add(`col-md-5`, `col-12`,  `card`, `border`, `border-3`, `shadow`, `px-0`, `mb-auto`)
     singleTask.id = `single-task-${task.id}`
     singleTask.append(buildHeader(task), buildBody(task))
     return singleTask

@@ -17,23 +17,15 @@ function showProject() {
 
 function buildProject() {
     const allProjectInfo = []
-    allProjectInfo.push(buildProjectHeader(), buildProjectDescription())
+    allProjectInfo.push(buildProjectHeader())
     return allProjectInfo
 }
 
 function buildProjectHeader() {
     const header = document.createElement(`h3`)
     header.classList.add(`card-header`, `row`, `justify-content-between`, `w-100`, `text-bg-info`, `border-bottom`, `border-2`)
-    header.append(buildProjectDate(), buildProjectTitle(), buildProjectPriority())
+    header.append(buildProjectTitle(), buildProjectDate())
     return header
-}
-
-function buildProjectDate() {
-    const dueDate = document.createElement(`div`)
-    dueDate.classList.add(`col-12`, `text-light`, `fw-bold`, `text-center`)
-    dueDate.id = `project-${currentProject.id}-date`
-    dueDate.innerHTML = currentProject.dateFormatted()
-    return dueDate
 }
 
 function buildProjectTitle() {
@@ -44,20 +36,12 @@ function buildProjectTitle() {
     return title
 }
 
-function buildProjectPriority() {
-    const priority = document.createElement(`div`)
-    priority.classList.add(`col-md-5`, `col-12`, determinePriorityColor(currentProject.priority), `fw-bold`, `text-center`, `text-md-end`)
-    priority.id = `project-${currentProject.id}-priority`
-    priority.innerHTML = currentProject.priority
-    return priority
-}
-
-function buildProjectDescription() {
-    const description = document.createElement(`div`)
-    description.classList.add(`fs-5`)
-    description.id = `project-${currentProject.id}-description`
-    description.innerHTML = currentProject.description
-    return description
+function buildProjectDate() {
+    const dueDate = document.createElement(`div`)
+    dueDate.classList.add(`col-md-5`, `col-12`, `text-light`, `fw-bold`, `text-center`, `text-md-end`)
+    dueDate.id = `project-${currentProject.id}-date`
+    dueDate.innerHTML = currentProject.dateFormatted()
+    return dueDate
 }
 
 function wipeProject() {
