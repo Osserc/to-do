@@ -1,14 +1,17 @@
 import { allProjects, currentProject } from "./buildProject"
 
+`use strict`
+
 let allTasks = currentProject.tasks
 
 const taskFactory = (title, priority, id, done = false) => {
 
     const toggleDone = () => {
-        done = !done
+        task.done = !task.done
     }
 
-    return { title, done, priority, id, toggleDone }
+    const task = { title, done, priority, id, toggleDone }
+    return task
 }
 
 function createTask(title, priority) {
@@ -46,5 +49,7 @@ createTask(`Make chicharrones`, `Trivial`)
 allTasks[0].done = true
 allTasks[2].done = true
 allTasks[3].done = true
+
+console.log(allTasks)
 
 export { allTasks, changeTaskData }

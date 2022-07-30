@@ -2,6 +2,7 @@ import { allTasks } from "../buildTask"
 import { allProjects } from "../buildProject"
 import { determinePriorityColor, activateEditButton } from "./domTaskShared"
 import { showEditForm } from "./domTaskEdit"
+import { refreshProjectProgress } from "./domProject"
 
 const list = document.getElementById(`task-list`)
 
@@ -73,9 +74,10 @@ function buildCheckmarkButton(id) {
     const checkButton = document.createElement(`input`)
     checkButton.classList.add(`form-check-input`)
     checkButton.type = `checkbox`
-    checkButton.value = ``
+    checkButton.checked = allTasks[id].done
     checkButton.id = `check-button-${id}`
     checkButton.addEventListener('change', allTasks[id].toggleDone)
+    checkButton.addEventListener(`change`, refreshProjectProgress)
     return checkButton
 }
 
