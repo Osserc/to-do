@@ -1,17 +1,15 @@
 import { allProjects, currentProject } from "./buildProject"
 
-`use strict`
-
 let allTasks = currentProject.tasks
 
-const taskFactory = (title, priority, id, done = false) => {
+function taskFactory(title, priority, id, done = false) {
 
-    const toggleDone = () => {
-        task.done = !task.done
+    function toggleDone() {
+        this.done = !this.done
+        console.log(this)
     }
 
-    const task = { title, done, priority, id, toggleDone }
-    return task
+    return { title, done, priority, id, toggleDone }
 }
 
 function createTask(title, priority) {

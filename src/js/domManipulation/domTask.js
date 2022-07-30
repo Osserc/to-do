@@ -76,8 +76,13 @@ function buildCheckmarkButton(id) {
     checkButton.type = `checkbox`
     checkButton.checked = allTasks[id].done
     checkButton.id = `check-button-${id}`
-    checkButton.addEventListener('change', allTasks[id].toggleDone)
+    checkButton.addEventListener('change', function() {
+        allTasks[id].toggleDone()
+    })
     checkButton.addEventListener(`change`, refreshProjectProgress)
+    checkButton.addEventListener(`change`, function() {
+        console.log(allTasks[id])
+    })
     return checkButton
 }
 
