@@ -6,7 +6,6 @@ function taskFactory(title, priority, id, done = false) {
 
     function toggleDone() {
         this.done = !this.done
-        console.log(this)
     }
 
     return { title, done, priority, id, toggleDone }

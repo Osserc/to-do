@@ -80,9 +80,6 @@ function buildCheckmarkButton(id) {
         allTasks[id].toggleDone()
     })
     checkButton.addEventListener(`change`, refreshProjectProgress)
-    checkButton.addEventListener(`change`, function() {
-        console.log(allTasks[id])
-    })
     return checkButton
 }
 
