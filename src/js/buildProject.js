@@ -1,8 +1,8 @@
 let allProjects = []
 
-const projectFactory = (title, dueDate, id, tasks = []) => {
+function projectFactory(title, dueDate, id, tasks = []) {
 
-    const dateFormatted = () => {
+    function dateFormatted() {
         return dueDate.toLocaleString().split(',')[0]
     }
 
