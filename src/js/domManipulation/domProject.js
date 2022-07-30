@@ -17,7 +17,7 @@ function showProject() {
 
 function buildProject() {
     const allProjectInfo = []
-    allProjectInfo.push(buildProjectHeader())
+    allProjectInfo.push(buildProjectHeader(), buildDetails())
     return allProjectInfo
 }
 
@@ -44,21 +44,47 @@ function buildProjectDate() {
     return dueDate
 }
 
+function buildDetails() {
+    const body = document.createElement(`div`)
+    body.classList.add(`card-body`, `d-flex`, `justify-content-between`, `align-items-center`, `w-100`, `py-2`)
+    body.append(buildProgress(), buildAddTask(), buildEditProject())
+    return body
+}
+
+function buildProgress() {
+    let completedTasks = determineCompletedTasks()
+    const taskProgress = document.createElement(`div`)
+    taskProgress.innerHTML = `Tasks: ${completedTasks}/${currentProject.tasks.length}`
+    return taskProgress
+}
+
+function determineCompletedTasks() {
+    let completedTasks = 0
+    for (let i = 0; i < currentProject.tasks.length; i++) {
+        if (currentProject.tasks[i].done == true) {
+            completedTasks++
+        }
+    }
+    return completedTasks
+}
+
+function buildAddTask() {
+
+}
+
+function buildEditProject() {
+    const editButton = document.createElement(`button`)
+    editButton.dataset.taskId = 8
+    editButton.id = `button-edit-`
+    editButton.classList.add(`btn`, `btn-primary`)
+    editButton.innerHTML = `Edit`
+    return editButton
+}
+
 function wipeProject() {
     card.replaceChildren()
 }
 
 showProject()
-
-/* <div class="container-fluid d-flex flex-column justify-content-center align-items-center card border border-3 w-75 px-0 mt-3" id="project-details">
-    <h3 class="card-header row justify-content-between w-100 text-bg-info border-bottom border-2">
-        <div class="col-12 text-light fw-bold text-center">Due date</div>
-        <div class="col-md-5 col-12 text-light fw-bold text-center text-md-start">Current project title</div>
-        <div class="col-md-5 col-12 text-light fw-bold text-center text-md-end">Priority level</div>
-    </h3>
-    <div class="fs-5">
-        Task description
-    </div>
-</div> */
 
 export { currentProject }

@@ -43,5 +43,8 @@ createTask(`Get back planer`, `Pressing`)
 createTask(`Put away ladder`, `Pressing`)
 createTask(`Prepare snake juice`, `Trivial`)
 createTask(`Make chicharrones`, `Trivial`)
+allTasks[0].done = true
+allTasks[2].done = true
+allTasks[3].done = true
 
 export { allTasks, changeTaskData }
