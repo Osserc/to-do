@@ -21,56 +21,58 @@ function buildEditForm(id) {
     const form = document.createElement(`form`)
     form.id = `task-${id}-edit-form`
     form.classList.add(`d-flex`, `justify-content-between`, `align-items-center`, `gap-3`)
-    form.append(buildEditFormHiddenField(id), buildEditFormTitle(), buildEditFormPriority(), buildEditFormButton())
+    form.append(buildEditFormHiddenField(id), buildEditFormTitle(id), buildEditFormPriority(id), buildEditFormButton())
     return form
 }
 
-function buildEditFormTitle() {
+function buildEditFormTitle(id) {
     const formTitleContainer = document.createElement(`div`)
     formTitleContainer.classList.add(`form-group`)
-    formTitleContainer.append(buildEditFormTitleLabel(), buildEditFormTitleInput())
+    formTitleContainer.append(buildEditFormTitleLabel(id), buildEditFormTitleInput(id))
     return formTitleContainer
 }
 
-function buildEditFormTitleLabel() {
+function buildEditFormTitleLabel(id) {
     const formTitleLabel = document.createElement(`label`)
-    formTitleLabel.setAttribute(`for`, `name`)
+    formTitleLabel.setAttribute(`for`, `title-${id}`)
     formTitleLabel.innerHTML = `Title`
     return formTitleLabel
 }
 
-function buildEditFormTitleInput() {
+function buildEditFormTitleInput(id) {
     const formTitleInput = document.createElement(`input`)
     formTitleInput.setAttribute(`name`, `title`)
     formTitleInput.setAttribute(`type`, `text`)
+    formTitleInput.id = `title-${id}`
     formTitleInput.setAttribute(`placeholder`, `Type to modify the title`)
     formTitleInput.classList.add(`form-control`)
     return formTitleInput
 }
 
-function buildEditFormPriority() {
+function buildEditFormPriority(id) {
     const formTitleContainer = document.createElement(`div`)
     formTitleContainer.classList.add(`form-group`)
-    formTitleContainer.append(buildEditFormPriorityLabel(), buildEditFormPriorityInput())
+    formTitleContainer.append(buildEditFormPriorityLabel(id), buildEditFormPriorityInput(id))
     return formTitleContainer
 }
 
-function buildEditFormPriorityLabel() {
-    const formTitleLabel = document.createElement(`label`)
-    formTitleLabel.setAttribute(`for`, `priority`)
-    formTitleLabel.innerHTML = `Priority`
-    return formTitleLabel
+function buildEditFormPriorityLabel(id) {
+    const formPriorityLabel = document.createElement(`label`)
+    formPriorityLabel.setAttribute(`for`, `priority-${id}`)
+    formPriorityLabel.innerHTML = `Priority`
+    return formPriorityLabel
 }
 
-function buildEditFormPriorityInput() {
-    const formTitleInput = document.createElement(`select`)
-    formTitleInput.setAttribute(`name`, `priority`)
-    formTitleInput.classList.add(`form-control`)
+function buildEditFormPriorityInput(id) {
+    const formPriorityInput = document.createElement(`select`)
+    formPriorityInput.setAttribute(`name`, `priority`)
+    formPriorityInput.id = `priority-${id}`
+    formPriorityInput.classList.add(`form-control`)
     let priorityLevels = [`Trivial`, `Pressing`, `Urgent`]
     priorityLevels.forEach((level) => {
-        formTitleInput.add(buildEditFormPriorityOptions(level))
+        formPriorityInput.add(buildEditFormPriorityOptions(level))
     })
-    return formTitleInput
+    return formPriorityInput
 }
 
 function buildEditFormPriorityOptions(priority) {

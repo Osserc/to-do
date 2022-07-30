@@ -1,6 +1,7 @@
 import { allProjects, currentProject } from "../buildProject"
 import { showTaskAll, wipeTasks } from "./domTask"
 import { determinePriorityColor } from "./domTaskShared"
+import { showProjectEditForm } from "./domProjectEdit"
 
 const card = document.getElementById(`project-details`)
 
@@ -31,7 +32,7 @@ function buildProjectHeader() {
 function buildProjectTitle() {
     const title = document.createElement(`div`)
     title.classList.add(`col-md-5`, `col-12`, `text-light`, `fw-bold`, `text-center`, `text-md-start`)
-    title.id = `project-${currentProject.id}-title`
+    title.id = `project-title`
     title.innerHTML = currentProject.title
     return title
 }
@@ -64,9 +65,6 @@ function determineCompletedTasks() {
     for (let i = 0; i < currentProject.tasks.length; i++) {
         if (currentProject.tasks[i].done != true ) continue
         completedTasks++
-        // if (currentProject.tasks[i].done == true) {
-        //     completedTasks++
-        // }
     }
     return completedTasks
 }
@@ -86,10 +84,34 @@ function buildAddTaskButton() {
 
 function buildEditProjectButton() {
     const editButton = document.createElement(`button`)
-    editButton.id = `edit-project-${currentProject.id}`
+    editButton.id = `button-edit-project`
     editButton.classList.add(`btn`, `btn-primary`)
     editButton.innerHTML = `Edit`
+    activateEditButton(editButton)
     return editButton
+}
+
+function activateEditButton(button) {
+    button.addEventListener(`click`, function() {
+        showProjectEditForm()
+        swapEditButton(button)
+    }, { once: true })
+}
+
+function swapEditButton(button) {
+    button.innerHTML = `Close`
+    button.addEventListener(`click`, function() {
+        buttonSwapper(button)
+    }, { once: true })
+}
+
+function buttonSwapper(button) {
+    const formEdit = document.getElementById(`project-edit-container`)
+    if (formEdit != null) {
+        formEdit.remove()
+    }
+    activateEditButton(button)
+    button.innerHTML = `Edit`
 }
 
 function wipeProject() {
@@ -98,4 +120,4 @@ function wipeProject() {
 
 showProject()
 
-export { currentProject, refreshProjectProgress }
+export { currentProject, buildEditProjectButton, refreshProjectProgress }

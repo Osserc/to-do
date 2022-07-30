@@ -47,6 +47,4 @@ allTasks[0].done = true
 allTasks[2].done = true
 allTasks[3].done = true
 
-console.log(allTasks)
-
 export { allTasks, changeTaskData }
