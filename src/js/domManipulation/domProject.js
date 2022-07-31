@@ -3,6 +3,7 @@ import { showTaskAll, showTask, wipeTasks } from "./domTask"
 import { determinePriorityColor } from "./domTaskShared"
 import { showEditForm, buildEditForm } from "./domForms"
 import { addTask } from "../buildTask"
+import * as bootstrap from "bootstrap"
 
 const card = document.getElementById(`project-details`)
 
@@ -73,7 +74,6 @@ function determineCompletedTasks() {
 function refreshProjectProgress() {
     let completedTasks = determineCompletedTasks()
     document.getElementById(`progress`).innerHTML = `Tasks: ${completedTasks}/${determineTotalTasks()}`
-    console.log(currentProject.tasks.filter(determineTotalTasks).length)
 }
 
 function determineTotalTasks() {
@@ -99,16 +99,19 @@ function buildAddTaskButton() {
 }
 
 function prepareTaskModal() {
+    const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById(`multipurposeModal`))
+    const modalTitle = document.getElementById(`multipurposeModalLabel`)
     const modalBody = document.getElementById(`modal-body`)
+    modalTitle.innerHTML = `New task`
     const form = buildEditForm(currentProject.tasks.length)
-    console.log(form)
     modalBody.replaceChildren(form)
     form.addEventListener(`submit`, function() {
         event.preventDefault()
         addTask(event.target.elements)
         let task = currentProject.tasks[currentProject.tasks.length - 1]
         showTask(task)
-        console.log(task)
+        refreshProjectProgress()
+        modal.hide()
     })
 }
 
