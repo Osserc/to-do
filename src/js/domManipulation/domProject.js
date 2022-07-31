@@ -77,6 +77,9 @@ function refreshProjectProgress() {
 function buildAddTaskButton() {
     const addTaskButton = document.createElement(`button`)
     addTaskButton.id = `add-task`
+    addTaskButton.dataset.bsToggle = `modal`
+    addTaskButton.dataset.bsTarget = `#multipurposeModal`
+    addTaskButton.dataset.action = `addTask`
     addTaskButton.classList.add(`btn`, `btn-primary`)
     addTaskButton.innerHTML = `Add task`
     return addTaskButton
