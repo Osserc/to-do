@@ -1,8 +1,7 @@
 import { allProjects, currentProject } from "../buildProject"
 import { showTaskAll, showTask, wipeTasks } from "./domTask"
 import { determinePriorityColor } from "./domTaskShared"
-import { buildEditForm } from "./domTaskEdit"
-import { showProjectEditForm } from "./domProjectEdit"
+import { showEditForm, buildEditForm } from "./domForms"
 import { addTask } from "../buildTask"
 
 const card = document.getElementById(`project-details`)
@@ -58,14 +57,14 @@ function buildProgress() {
     let completedTasks = determineCompletedTasks()
     const taskProgress = document.createElement(`div`)
     taskProgress.id = `progress`
-    taskProgress.innerHTML = `Tasks: ${completedTasks}/${currentProject.tasks.length}`
+    taskProgress.innerHTML = `Tasks: ${completedTasks}/${determineTotalTasks()}`
     return taskProgress
 }
 
 function determineCompletedTasks() {
     let completedTasks = 0
     for (let i = 0; i < currentProject.tasks.length; i++) {
-        if (currentProject.tasks[i].done != true ) continue
+        if ((currentProject.tasks[i] == null) || (currentProject.tasks[i].done != true )) continue
         completedTasks++
     }
     return completedTasks
@@ -73,7 +72,16 @@ function determineCompletedTasks() {
 
 function refreshProjectProgress() {
     let completedTasks = determineCompletedTasks()
-    document.getElementById(`progress`).innerHTML = `Tasks: ${completedTasks}/${currentProject.tasks.length}`
+    document.getElementById(`progress`).innerHTML = `Tasks: ${completedTasks}/${determineTotalTasks()}`
+    console.log(currentProject.tasks.filter(determineTotalTasks).length)
+}
+
+function determineTotalTasks() {
+    return currentProject.tasks.filter(totalTasksCriteria).length
+}
+
+function totalTasksCriteria(task) {
+        return task != null
 }
 
 function buildAddTaskButton() {
@@ -115,7 +123,7 @@ function buildEditProjectButton() {
 
 function activateEditButton(button) {
     button.addEventListener(`click`, function() {
-        showProjectEditForm()
+        showEditForm(null, `Project`)
         swapEditButton(button)
     }, { once: true })
 }

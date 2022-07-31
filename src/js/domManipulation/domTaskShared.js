@@ -1,4 +1,4 @@
-import { showEditForm } from "./domTaskEdit"
+import { showEditForm } from "./domForms"
 
 function determinePriorityColor(priority) {
     switch (priority) {

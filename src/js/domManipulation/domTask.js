@@ -1,7 +1,7 @@
 import { allTasks } from "../buildTask"
 import { allProjects } from "../buildProject"
 import { determinePriorityColor, activateEditButton } from "./domTaskShared"
-import { showEditForm } from "./domTaskEdit"
+import { showEditForm } from "./domForms"
 import { refreshProjectProgress } from "./domProject"
 
 const list = document.getElementById(`task-list`)
@@ -113,6 +113,7 @@ function removeTask(id) {
     const singleTask = document.getElementById(`single-task-${id}`)
     allTasks[id] = null
     singleTask.remove()
+    refreshProjectProgress()
 }
 
 function wipeTasks() {
