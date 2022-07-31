@@ -1,7 +1,9 @@
 import { allProjects, currentProject } from "../buildProject"
-import { showTaskAll, wipeTasks } from "./domTask"
+import { showTaskAll, showTask, wipeTasks } from "./domTask"
 import { determinePriorityColor } from "./domTaskShared"
+import { buildEditForm } from "./domTaskEdit"
 import { showProjectEditForm } from "./domProjectEdit"
+import { addTask } from "../buildTask"
 
 const card = document.getElementById(`project-details`)
 
@@ -82,7 +84,24 @@ function buildAddTaskButton() {
     addTaskButton.dataset.action = `addTask`
     addTaskButton.classList.add(`btn`, `btn-primary`)
     addTaskButton.innerHTML = `Add task`
+    addTaskButton.addEventListener(`click`, function() {
+        prepareTaskModal()
+    })
     return addTaskButton
+}
+
+function prepareTaskModal() {
+    const modalBody = document.getElementById(`modal-body`)
+    const form = buildEditForm(currentProject.tasks.length)
+    console.log(form)
+    modalBody.replaceChildren(form)
+    form.addEventListener(`submit`, function() {
+        event.preventDefault()
+        addTask(event.target.elements)
+        let task = currentProject.tasks[currentProject.tasks.length - 1]
+        showTask(task)
+        console.log(task)
+    })
 }
 
 function buildEditProjectButton() {

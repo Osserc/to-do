@@ -28,6 +28,11 @@ function collectValues(elements) {
     return values
 }
 
+function addTask(elements) {
+    let values = collectValues(elements)
+    createTask(values.title, values.priority)
+}
+
 function substituteTaskData(values) {
     let singleTask = allTasks[values.taskId]
     if (values.title != ``) {
@@ -47,4 +52,4 @@ allTasks[0].done = true
 allTasks[2].done = true
 allTasks[3].done = true
 
-export { allTasks, changeTaskData }
+export { allTasks, changeTaskData, addTask }

@@ -122,4 +122,4 @@ function removeClassByPrefix(element, prefix) {
     element.className = element.className.replace(regx, '')
 }
 
-export { showEditForm }
+export { showEditForm, buildEditForm }
