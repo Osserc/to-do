@@ -1,6 +1,6 @@
 import { allTasks } from "../buildTask"
 import { allProjects } from "../buildProject"
-import { determinePriorityColor, activateEditButton } from "./domTaskShared"
+import { determinePriorityColor, buildEditButton } from "./domTaskShared"
 import { showEditForm } from "./domForms"
 import { refreshProjectProgress } from "./domProject"
 
@@ -99,16 +99,6 @@ function buildPriority(priority, id) {
     return priorityLevel
 }
 
-function buildEditButton(id) {
-    const editButton = document.createElement(`button`)
-    editButton.dataset.taskId = id
-    editButton.id = `button-edit-${id}`
-    editButton.classList.add(`btn`, `btn-primary`)
-    editButton.innerHTML = `Edit`
-    activateEditButton(editButton)
-    return editButton
-}
-
 function removeTask(id) {
     const singleTask = document.getElementById(`single-task-${id}`)
     allTasks[id] = null
@@ -122,4 +112,4 @@ function wipeTasks() {
 
 showTaskAll()
 
-export { showTaskAll, showTask, wipeTasks, buildEditButton }
+export { showTaskAll, showTask, wipeTasks }

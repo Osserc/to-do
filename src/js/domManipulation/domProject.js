@@ -1,6 +1,6 @@
 import { allProjects, currentProject } from "../buildProject"
 import { showTaskAll, showTask, wipeTasks } from "./domTask"
-import { determinePriorityColor } from "./domTaskShared"
+import { buildEditButton } from "./domTaskShared"
 import { showEditForm, buildEditForm } from "./domForms"
 import { addTask } from "../buildTask"
 import * as bootstrap from "bootstrap"
@@ -50,7 +50,7 @@ function buildProjectDate() {
 function buildDetails() {
     const body = document.createElement(`div`)
     body.classList.add(`card-body`, `d-flex`, `justify-content-between`, `align-items-center`, `w-100`, `py-2`)
-    body.append(buildProgress(), buildAddTaskButton(), buildEditProjectButton())
+    body.append(buildProgress(), buildAddTaskButton(), buildEditButton(`Project`))
     return body
 }
 
@@ -93,58 +93,29 @@ function buildAddTaskButton() {
     addTaskButton.classList.add(`btn`, `btn-primary`)
     addTaskButton.innerHTML = `Add task`
     addTaskButton.addEventListener(`click`, function() {
-        prepareTaskModal()
+        prepareTaskModal(`Task`, `New`)
     })
     return addTaskButton
 }
 
-function prepareTaskModal() {
-    const modal = bootstrap.Modal.getOrCreateInstance(document.getElementById(`multipurposeModal`))
+function prepareTaskModal(type, action) {
     const modalTitle = document.getElementById(`multipurposeModalLabel`)
     const modalBody = document.getElementById(`modal-body`)
     modalTitle.innerHTML = `New task`
-    const form = buildEditForm(currentProject.tasks.length)
+    const form = buildEditForm(type, action, currentProject.tasks.length)
     modalBody.replaceChildren(form)
     form.addEventListener(`submit`, function() {
         event.preventDefault()
-        addTask(event.target.elements)
-        let task = currentProject.tasks[currentProject.tasks.length - 1]
-        showTask(task)
-        refreshProjectProgress()
-        modal.hide()
+        succesfulTaskCreation(event)
     })
 }
 
-function buildEditProjectButton() {
-    const editButton = document.createElement(`button`)
-    editButton.id = `button-edit-project`
-    editButton.classList.add(`btn`, `btn-primary`)
-    editButton.innerHTML = `Edit`
-    activateEditButton(editButton)
-    return editButton
-}
-
-function activateEditButton(button) {
-    button.addEventListener(`click`, function() {
-        showEditForm(null, `Project`)
-        swapEditButton(button)
-    }, { once: true })
-}
-
-function swapEditButton(button) {
-    button.innerHTML = `Close`
-    button.addEventListener(`click`, function() {
-        buttonSwapper(button)
-    }, { once: true })
-}
-
-function buttonSwapper(button) {
-    const formEdit = document.getElementById(`project-edit-container`)
-    if (formEdit != null) {
-        formEdit.remove()
-    }
-    activateEditButton(button)
-    button.innerHTML = `Edit`
+function succesfulTaskCreation(event) {
+    addTask(event.target.elements)
+    bootstrap.Modal.getInstance(document.getElementById(`multipurposeModal`)).hide()
+    let task = currentProject.tasks[currentProject.tasks.length - 1]
+    showTask(task)
+    refreshProjectProgress()
 }
 
 function wipeProject() {
@@ -153,4 +124,4 @@ function wipeProject() {
 
 showProject()
 
-export { currentProject, buildEditProjectButton, refreshProjectProgress }
+export { currentProject, refreshProjectProgress }
