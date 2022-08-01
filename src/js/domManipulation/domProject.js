@@ -16,8 +16,8 @@ function showProject() {
     buildProject().forEach((element) => {
         card.append(element)
     })
-    const projectList = document.getElementById(`projectList`)
-    projectList.append(buildAddProjectButton())
+    const projectList = document.getElementById(`projectsCanvas`)
+    projectList.append(buildProjectsCanvas())
 }
 
 function buildProject() {
@@ -91,27 +91,12 @@ function buildAddTaskButton() {
     addTaskButton.id = `add-task`
     addTaskButton.dataset.bsToggle = `modal`
     addTaskButton.dataset.bsTarget = `#multipurposeModal`
-    // addTaskButton.dataset.action = `addTask`
     addTaskButton.classList.add(`btn`, `btn-primary`)
     addTaskButton.innerHTML = `Add task`
     addTaskButton.addEventListener(`click`, function() {
         prepareTaskModal(`Task`, `New`)
     })
     return addTaskButton
-}
-
-function buildAddProjectButton() {
-    const addProjectButton = document.createElement(`button`)
-    addProjectButton.id = `add-project`
-    addProjectButton.dataset.bsToggle = `modal`
-    addProjectButton.dataset.bsTarget = `#multipurposeModal`
-    // addProjectButton.dataset.action = `addProject`
-    addProjectButton.classList.add(`btn`, `btn-primary`)
-    addProjectButton.innerHTML = `Add project`
-    addProjectButton.addEventListener(`click`, function() {
-        prepareTaskModal(`Project`, `New`)
-    })
-    return addProjectButton
 }
 
 function prepareTaskModal(type, action) {
@@ -123,21 +108,21 @@ function prepareTaskModal(type, action) {
     form.addEventListener(`submit`, function() {
         event.preventDefault()
         if (type == `Project`) {
-            succesfulProjectCreation(event)
+            successfulProjectCreation(event)
         } else {
-            succesfulTaskCreation(event)
+            successfulTaskCreation(event)
         }  
     })
 }
 
-function succesfulProjectCreation(event) {
+function successfulProjectCreation(event) {
     addProject(event.target.elements)
     bootstrap.Modal.getInstance(document.getElementById(`multipurposeModal`)).hide()
     let project = allProjects[allProjects.length - 1]
-    console.log(project)
+    updateProjectsList()
 }
 
-function succesfulTaskCreation(event) {
+function successfulTaskCreation(event) {
     addTask(event.target.elements)
     bootstrap.Modal.getInstance(document.getElementById(`multipurposeModal`)).hide()
     let task = currentProject.tasks[currentProject.tasks.length - 1]
@@ -147,6 +132,77 @@ function succesfulTaskCreation(event) {
 
 function wipeProject() {
     card.replaceChildren()
+}
+
+function buildProjectsCanvas() {
+    const canvasContents = document.createElement(`div`)
+    canvasContents.classList.add(`d-flex`, `flex-column`, `gap-3`)
+    canvasContents.append(buildProjectsActions(), buildProjectsList())
+    return canvasContents
+}
+
+function buildProjectsActions() {
+    const projectsActions = document.createElement(`div`)
+    const closeCanvasButton = buildCloseCanvasButton()
+    const addProjectButton = buildAddProjectButton()
+    projectsActions.classList.add(`d-flex`, `justify-content-between`, `align-items-center`)
+    projectsActions.append(closeCanvasButton, addProjectButton)
+    return projectsActions
+}
+
+function buildCloseCanvasButton() {
+    const closeCanvasButton = document.createElement(`button`)
+    closeCanvasButton.setAttribute(`type`, `button`)
+    closeCanvasButton.dataset.bsDismiss = `offcanvas`
+    closeCanvasButton.classList.add(`btn-close`)
+    return closeCanvasButton
+}
+
+function buildAddProjectButton() {
+    const addProjectButton = document.createElement(`button`)
+    addProjectButton.id = `add-project`
+    addProjectButton.dataset.bsToggle = `modal`
+    addProjectButton.dataset.bsTarget = `#multipurposeModal`
+    addProjectButton.classList.add(`btn`, `btn-primary`)
+    addProjectButton.innerHTML = `Add project`
+    addProjectButton.addEventListener(`click`, function() {
+        prepareTaskModal(`Project`, `New`)
+    })
+    return addProjectButton
+}
+
+function buildProjectsList() {
+    const projectsList = document.createElement(`div`)
+    projectsList.classList.add(`d-flex`, `gap-3`)
+    projectsList.id = `projects-list`
+    projectsList.classList.add(`d-flex`, `flex-column`)
+    allProjects.forEach((project) => {
+        projectsList.append(buildProjectCard(project))
+    })
+    return projectsList
+}
+
+function buildProjectCard(project) {
+    const card = document.createElement(`div`)
+    card.classList.add(`text-bg-primary`, `d-flex`, `flex-column`, `flex-md-row`, `justify-content-between`, `align-items-center`, `p-2`, `rounded`, `gap-3`)
+    const title = document.createElement(`div`)
+    title.innerHTML = project.title
+    const actions = document.createElement(`div`)
+    actions.classList.add(`d-flex`, `gap-3`)
+    const deleteButton = document.createElement(`button`)
+    deleteButton.classList.add(`btn`, `btn-info`)
+    deleteButton.innerHTML = `Delete`
+    const selectButton = document.createElement(`button`)
+    selectButton.classList.add(`btn`, `btn-info`)
+    selectButton.innerHTML = `Select`
+    actions.append(deleteButton, selectButton)
+    card.append(title, actions)
+    return card
+}
+
+function updateProjectsList() {
+    const projectsList = document.getElementById(`projects-list`)
+    projectsList.replaceWith(buildProjectsList())
 }
 
 showProject()
