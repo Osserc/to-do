@@ -25,6 +25,11 @@ function collectValues(elements) {
     return values
 }
 
+function addProject(elements) {
+    let values = collectValues(elements)
+    createProject(values.title, values.dueDate)
+}
+
 function substituteProjectData(values) {
     if (values.title != ``) {
         currentProject.title = values.title
@@ -37,4 +42,4 @@ function substituteProjectData(values) {
 createProject(`Build a doghouse`, new Date(`March 5, 2023`))
 let currentProject = allProjects[0]
 
-export { allProjects, currentProject, changeProjectData }
+export { allProjects, currentProject, addProject, changeProjectData }

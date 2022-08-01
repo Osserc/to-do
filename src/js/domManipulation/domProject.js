@@ -1,4 +1,4 @@
-import { allProjects, currentProject } from "../buildProject"
+import { allProjects, currentProject, addProject } from "../buildProject"
 import { showTaskAll, showTask, wipeTasks } from "./domTask"
 import { buildEditButton } from "./domTaskShared"
 import { showForm, buildForm } from "./domForms"
@@ -16,6 +16,8 @@ function showProject() {
     buildProject().forEach((element) => {
         card.append(element)
     })
+    const projectList = document.getElementById(`projectList`)
+    projectList.append(buildAddProjectButton())
 }
 
 function buildProject() {
@@ -89,13 +91,27 @@ function buildAddTaskButton() {
     addTaskButton.id = `add-task`
     addTaskButton.dataset.bsToggle = `modal`
     addTaskButton.dataset.bsTarget = `#multipurposeModal`
-    addTaskButton.dataset.action = `addTask`
+    // addTaskButton.dataset.action = `addTask`
     addTaskButton.classList.add(`btn`, `btn-primary`)
     addTaskButton.innerHTML = `Add task`
     addTaskButton.addEventListener(`click`, function() {
         prepareTaskModal(`Task`, `New`)
     })
     return addTaskButton
+}
+
+function buildAddProjectButton() {
+    const addProjectButton = document.createElement(`button`)
+    addProjectButton.id = `add-project`
+    addProjectButton.dataset.bsToggle = `modal`
+    addProjectButton.dataset.bsTarget = `#multipurposeModal`
+    // addProjectButton.dataset.action = `addProject`
+    addProjectButton.classList.add(`btn`, `btn-primary`)
+    addProjectButton.innerHTML = `Add project`
+    addProjectButton.addEventListener(`click`, function() {
+        prepareTaskModal(`Project`, `New`)
+    })
+    return addProjectButton
 }
 
 function prepareTaskModal(type, action) {
@@ -106,8 +122,19 @@ function prepareTaskModal(type, action) {
     modalBody.replaceChildren(form)
     form.addEventListener(`submit`, function() {
         event.preventDefault()
-        succesfulTaskCreation(event)
+        if (type == `Project`) {
+            succesfulProjectCreation(event)
+        } else {
+            succesfulTaskCreation(event)
+        }  
     })
+}
+
+function succesfulProjectCreation(event) {
+    addProject(event.target.elements)
+    bootstrap.Modal.getInstance(document.getElementById(`multipurposeModal`)).hide()
+    let project = allProjects[allProjects.length - 1]
+    console.log(project)
 }
 
 function succesfulTaskCreation(event) {
