@@ -3,19 +3,19 @@ import { determinePriorityColor, buildEditButton, activateEditButton, buttonSwap
 import { allTasks, changeTaskData } from "../buildTask"
 import { allProjects } from "../buildProject"
 
-function showEditForm(type, action, id = null) {
+function showForm(type, action, id = null) {
     if (type == `Project`) {
         const projectToEdit = document.getElementById(`project-details`)
-        projectToEdit.appendChild(buildEditCard(type, action, id))
+        projectToEdit.appendChild(showFormCard(type, action, id))
         activateEditForm(type, action, id)
     } else {
         const taskToEdit = document.getElementById(`single-task-${id}`)
-        taskToEdit.appendChild(buildEditCard(type, action, id))
+        taskToEdit.appendChild(showFormCard(type, action, id))
         activateEditForm(type, action, id)
     }
 }
 
-function buildEditCard(type, action, id = null) {
+function showFormCard(type, action, id = null) {
     const formCard = document.createElement(`div`)
     if (type == `Project`) {
         if (action == `New`) {
@@ -31,11 +31,11 @@ function buildEditCard(type, action, id = null) {
         }
     }
     formCard.classList.add(`p-3`, `container-fluid`)
-    formCard.appendChild(buildEditForm(type, action, id))
+    formCard.appendChild(buildForm(type, action, id))
     return formCard
 }
 
-function buildEditForm(type, action, id = null) {
+function buildForm(type, action, id = null) {
     const form = document.createElement(`form`)
     if (type == `Project`) {
         if (action == `New`) {
@@ -214,4 +214,4 @@ function removeClassByPrefix(element, prefix) {
     element.className = element.className.replace(regx, '')
 }
 
-export { showEditForm, buildEditForm }
+export { showForm, buildForm }

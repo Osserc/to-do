@@ -1,7 +1,7 @@
 import { allProjects, currentProject } from "../buildProject"
 import { showTaskAll, showTask, wipeTasks } from "./domTask"
 import { buildEditButton } from "./domTaskShared"
-import { showEditForm, buildEditForm } from "./domForms"
+import { showForm, buildForm } from "./domForms"
 import { addTask } from "../buildTask"
 import * as bootstrap from "bootstrap"
 
@@ -102,7 +102,7 @@ function prepareTaskModal(type, action) {
     const modalTitle = document.getElementById(`multipurposeModalLabel`)
     const modalBody = document.getElementById(`modal-body`)
     modalTitle.innerHTML = `New task`
-    const form = buildEditForm(type, action, currentProject.tasks.length)
+    const form = buildForm(type, action, currentProject.tasks.length)
     modalBody.replaceChildren(form)
     form.addEventListener(`submit`, function() {
         event.preventDefault()

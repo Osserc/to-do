@@ -1,4 +1,4 @@
-import { showEditForm } from "./domForms"
+import { showForm } from "./domForms"
 
 function determinePriorityColor(priority) {
     switch (priority) {
@@ -31,10 +31,10 @@ function buildEditButton(type, id = 0) {
 function activateEditButton(type, button) {
     button.addEventListener(`click`, function() {
         if (type == `Project`) {
-            showEditForm(`Project`, `Edit`)
+            showForm(`Project`, `Edit`)
             swapEditButton(`Project`, button)
         } else {
-            showEditForm(`Task`, `Edit`, button.dataset.taskId)
+            showForm(`Task`, `Edit`, button.dataset.taskId)
             swapEditButton(`Task`, button, button.dataset.taskId)
         }
     }, { once: true })

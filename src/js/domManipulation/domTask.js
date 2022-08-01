@@ -1,7 +1,7 @@
 import { allTasks } from "../buildTask"
 import { allProjects } from "../buildProject"
 import { determinePriorityColor, buildEditButton } from "./domTaskShared"
-import { showEditForm } from "./domForms"
+import { showForm } from "./domForms"
 import { refreshProjectProgress } from "./domProject"
 
 const list = document.getElementById(`task-list`)
@@ -58,7 +58,7 @@ function activateDeleteButton(button) {
 function buildBody(task) {
     const body = document.createElement(`div`)
     body.classList.add(`card-body`, `d-flex`, `justify-content-between`, `align-items-center`, `text-bg-secondary`, `py-2`)
-    body.append(buildCheckmark(task.id), buildPriority(task.priority, task.id), buildEditButton(task.id))
+    body.append(buildCheckmark(task.id), buildPriority(task.priority, task.id), buildEditButton(`Task`, task.id))
     return body
 }
 
