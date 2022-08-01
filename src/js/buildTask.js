@@ -1,8 +1,8 @@
 import { allProjects, currentProject } from "./buildProject"
 
 let allTasks = []
-if (allProjects.length > 0) {
-    allTasks = currentProject.tasks
+if ((allProjects.length > 0) && (allProjects.some((project) => project != null))) {
+    allTasks = allProjects.find((project) => project != null).tasks
 }
 
 
@@ -45,6 +45,14 @@ function substituteTaskData(values) {
     singleTask.priority = values.priority
 }
 
+function changeAllTasks() {
+    if (currentProject == null) {
+        allTasks = []
+    } else {
+        allTasks = currentProject.tasks
+    }
+}
+
 createTask(`Buy wood`, `Urgent`)
 createTask(`Repair workbench`, `Urgent`)
 createTask(`Assemble tools`, `Trivial`)
@@ -56,4 +64,4 @@ allTasks[0].done = true
 allTasks[2].done = true
 allTasks[3].done = true
 
-export { allTasks, changeTaskData, addTask }
+export { allTasks, changeTaskData, addTask, changeAllTasks }

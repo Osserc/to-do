@@ -1,8 +1,8 @@
-import { allProjects, currentProject, addProject } from "../buildProject"
+import { allProjects, currentProject, addProject, changeCurrentProject, deleteProject } from "../buildProject"
 import { showTaskAll, showTask, wipeTasks } from "./domTask"
 import { buildEditButton } from "./domTaskShared"
 import { showForm, buildForm } from "./domForms"
-import { addTask, allTasks } from "../buildTask"
+import { addTask, allTasks, changeAllTasks } from "../buildTask"
 import * as bootstrap from "bootstrap"
 
 
@@ -10,7 +10,7 @@ function showProject() {
     const card = document.getElementById(`project-details`)
     card.classList.add(`invisible`)
     wipeProject()
-    if (allProjects.length > 0) {
+    if (currentProject != null) {
         card.classList.remove(`invisible`)
         buildProject().forEach((element) => {
             card.append(element)
@@ -140,7 +140,9 @@ function wipeProject() {
 
 function activateAddProjectButton() {
     const addButton = document.getElementById(`add-project`)
-    addButton.addEventListener(`click`, prepareModal(`Project`, `New`))
+    addButton.addEventListener(`click`, function() {
+        prepareModal(`Project`, `New`)
+    })
 }
 
 function buildProjectsList() {
@@ -181,6 +183,9 @@ function buildSelectButton(id) {
     selectButton.classList.add(`btn`, `btn-info`)
     selectButton.dataset.id = id
     selectButton.innerHTML = `Select`
+    selectButton.addEventListener(`click`, function() {
+        selectProject(id)
+    })
     return selectButton
 }
 
@@ -190,8 +195,21 @@ function initializeCanvas() {
 }
 
 function removeProject(id) {
-    allProjects[id] = null
+    deleteProject(id)
+    if (currentProject.id == id) {
+        changeCurrentProject()
+        showProject()
+        changeAllTasks()
+        showTaskAll()
+    }
     buildProjectsList()
+}
+
+function selectProject(id) {
+    changeCurrentProject(id)
+    changeAllTasks()
+    showProject()
+    showTaskAll()
 }
 
 showProject()

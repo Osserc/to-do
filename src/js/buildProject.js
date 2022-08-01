@@ -1,5 +1,3 @@
-let allProjects = []
-
 function projectFactory(title, dueDate, id, tasks = []) {
 
     function dateFormatted() {
@@ -39,12 +37,25 @@ function substituteProjectData(values) {
     }
 }
 
+function deleteProject(id) {
+    allProjects[id] = null
+}
+
+function changeCurrentProject(id) {
+    if (allProjects.every((project) => project == null)) {
+        currentProject = null
+    } else {
+        currentProject = allProjects[id]
+    }
+}
+
+let allProjects = []
 createProject(`Build a doghouse`, new Date(`March 5, 2023`))
 
-let currentProject = []
-if (allProjects.length > 0) {
-    currentProject = allProjects[0]
+let currentProject = null
+if ((allProjects.length > 0) && (allProjects.some((project) => project != null))) {
+    currentProject = allProjects.find((project) => project != null)
 }
 
 
-export { allProjects, currentProject, addProject, changeProjectData }
+export { allProjects, currentProject, addProject, changeProjectData, changeCurrentProject, deleteProject }
