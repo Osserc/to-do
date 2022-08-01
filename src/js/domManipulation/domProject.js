@@ -147,7 +147,9 @@ function buildProjectsList() {
     const projectsList = document.getElementById(`projects-list`)
     projectsList.replaceChildren()
     allProjects.forEach((project) => {
-        projectsList.append(buildProjectCard(project))
+        if (project != null) {
+            projectsList.append(buildProjectCard(project))
+        }
     })
 }
 
@@ -158,19 +160,37 @@ function buildProjectCard(project) {
     title.innerHTML = project.title
     const actions = document.createElement(`div`)
     actions.classList.add(`d-flex`, `gap-3`)
-    const deleteButton = document.createElement(`button`)
-    deleteButton.classList.add(`btn`, `btn-info`)
-    deleteButton.innerHTML = `Delete`
-    const selectButton = document.createElement(`button`)
-    selectButton.classList.add(`btn`, `btn-info`)
-    selectButton.innerHTML = `Select`
-    actions.append(deleteButton, selectButton)
+    actions.append(buildDeleteButton(project.id), buildSelectButton(project.id))
     card.append(title, actions)
     return card
 }
 
+function buildDeleteButton(id) {
+    const deleteButton = document.createElement(`button`)
+    deleteButton.classList.add(`btn`, `btn-info`)
+    deleteButton.innerHTML = `Delete`
+    deleteButton.dataset.id = id
+    deleteButton.addEventListener(`click`, function() {
+        removeProject(id)
+    })
+    return deleteButton
+}
+
+function buildSelectButton(id) {
+    const selectButton = document.createElement(`button`)
+    selectButton.classList.add(`btn`, `btn-info`)
+    selectButton.dataset.id = id
+    selectButton.innerHTML = `Select`
+    return selectButton
+}
+
 function initializeCanvas() {
     activateAddProjectButton()
+    buildProjectsList()
+}
+
+function removeProject(id) {
+    allProjects[id] = null
     buildProjectsList()
 }
 
