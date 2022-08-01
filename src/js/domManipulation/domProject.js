@@ -2,22 +2,20 @@ import { allProjects, currentProject, addProject } from "../buildProject"
 import { showTaskAll, showTask, wipeTasks } from "./domTask"
 import { buildEditButton } from "./domTaskShared"
 import { showForm, buildForm } from "./domForms"
-import { addTask } from "../buildTask"
+import { addTask, allTasks } from "../buildTask"
 import * as bootstrap from "bootstrap"
 
-const card = document.getElementById(`project-details`)
-
-function showProjectsAll() {
-
-}
 
 function showProject() {
+    const card = document.getElementById(`project-details`)
+    card.classList.add(`invisible`)
     wipeProject()
-    buildProject().forEach((element) => {
-        card.append(element)
-    })
-    const projectList = document.getElementById(`projectsCanvas`)
-    projectList.append(buildProjectsCanvas())
+    if (allProjects.length > 0) {
+        card.classList.remove(`invisible`)
+        buildProject().forEach((element) => {
+            card.append(element)
+        })
+    }
 }
 
 function buildProject() {
@@ -94,16 +92,22 @@ function buildAddTaskButton() {
     addTaskButton.classList.add(`btn`, `btn-primary`)
     addTaskButton.innerHTML = `Add task`
     addTaskButton.addEventListener(`click`, function() {
-        prepareTaskModal(`Task`, `New`)
+        prepareModal(`Task`, `New`)
     })
     return addTaskButton
 }
 
-function prepareTaskModal(type, action) {
+function prepareModal(type, action) {
     const modalTitle = document.getElementById(`multipurposeModalLabel`)
     const modalBody = document.getElementById(`modal-body`)
-    modalTitle.innerHTML = `New task`
-    const form = buildForm(type, action, currentProject.tasks.length)
+    let form = null
+    if (type == `Project`) {
+        modalTitle.innerHTML = `New project`
+        form = buildForm(type, action)
+    } else {
+        modalTitle.innerHTML = `New task`
+        form = buildForm(type, action, currentProject.tasks.length)
+    }
     modalBody.replaceChildren(form)
     form.addEventListener(`submit`, function() {
         event.preventDefault()
@@ -118,8 +122,7 @@ function prepareTaskModal(type, action) {
 function successfulProjectCreation(event) {
     addProject(event.target.elements)
     bootstrap.Modal.getInstance(document.getElementById(`multipurposeModal`)).hide()
-    let project = allProjects[allProjects.length - 1]
-    updateProjectsList()
+    buildProjectsList()
 }
 
 function successfulTaskCreation(event) {
@@ -131,55 +134,21 @@ function successfulTaskCreation(event) {
 }
 
 function wipeProject() {
+    const card = document.getElementById(`project-details`)
     card.replaceChildren()
 }
 
-function buildProjectsCanvas() {
-    const canvasContents = document.createElement(`div`)
-    canvasContents.classList.add(`d-flex`, `flex-column`, `gap-3`)
-    canvasContents.append(buildProjectsActions(), buildProjectsList())
-    return canvasContents
-}
-
-function buildProjectsActions() {
-    const projectsActions = document.createElement(`div`)
-    const closeCanvasButton = buildCloseCanvasButton()
-    const addProjectButton = buildAddProjectButton()
-    projectsActions.classList.add(`d-flex`, `justify-content-between`, `align-items-center`)
-    projectsActions.append(closeCanvasButton, addProjectButton)
-    return projectsActions
-}
-
-function buildCloseCanvasButton() {
-    const closeCanvasButton = document.createElement(`button`)
-    closeCanvasButton.setAttribute(`type`, `button`)
-    closeCanvasButton.dataset.bsDismiss = `offcanvas`
-    closeCanvasButton.classList.add(`btn-close`)
-    return closeCanvasButton
-}
-
-function buildAddProjectButton() {
-    const addProjectButton = document.createElement(`button`)
-    addProjectButton.id = `add-project`
-    addProjectButton.dataset.bsToggle = `modal`
-    addProjectButton.dataset.bsTarget = `#multipurposeModal`
-    addProjectButton.classList.add(`btn`, `btn-primary`)
-    addProjectButton.innerHTML = `Add project`
-    addProjectButton.addEventListener(`click`, function() {
-        prepareTaskModal(`Project`, `New`)
-    })
-    return addProjectButton
+function activateAddProjectButton() {
+    const addButton = document.getElementById(`add-project`)
+    addButton.addEventListener(`click`, prepareModal(`Project`, `New`))
 }
 
 function buildProjectsList() {
-    const projectsList = document.createElement(`div`)
-    projectsList.classList.add(`d-flex`, `gap-3`)
-    projectsList.id = `projects-list`
-    projectsList.classList.add(`d-flex`, `flex-column`)
+    const projectsList = document.getElementById(`projects-list`)
+    projectsList.replaceChildren()
     allProjects.forEach((project) => {
         projectsList.append(buildProjectCard(project))
     })
-    return projectsList
 }
 
 function buildProjectCard(project) {
@@ -200,11 +169,12 @@ function buildProjectCard(project) {
     return card
 }
 
-function updateProjectsList() {
-    const projectsList = document.getElementById(`projects-list`)
-    projectsList.replaceWith(buildProjectsList())
+function initializeCanvas() {
+    activateAddProjectButton()
+    buildProjectsList()
 }
 
 showProject()
+initializeCanvas()
 
-export { currentProject, refreshProjectProgress }
+export { refreshProjectProgress }

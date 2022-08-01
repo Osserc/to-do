@@ -1,6 +1,10 @@
 import { allProjects, currentProject } from "./buildProject"
 
-let allTasks = currentProject.tasks
+let allTasks = []
+if (allProjects.length > 0) {
+    allTasks = currentProject.tasks
+}
+
 
 function taskFactory(title, priority, id, done = false) {
 

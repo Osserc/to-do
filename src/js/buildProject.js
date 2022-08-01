@@ -40,6 +40,11 @@ function substituteProjectData(values) {
 }
 
 createProject(`Build a doghouse`, new Date(`March 5, 2023`))
-let currentProject = allProjects[0]
+
+let currentProject = []
+if (allProjects.length > 0) {
+    currentProject = allProjects[0]
+}
+
 
 export { allProjects, currentProject, addProject, changeProjectData }
