@@ -34,7 +34,7 @@ function decryptData(data) {
         buildTask.refreshAllTasks()
         project.tasks.forEach((task) => {
             if (task == null) return
-            buildTask.createTask(task.title, task.priority)
+            buildTask.createTask(task.title, task.priority, task.done)
         })
     })
 }

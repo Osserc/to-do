@@ -77,6 +77,7 @@ function buildCheckmarkButton(id) {
     checkButton.id = `check-button-${id}`
     checkButton.addEventListener('change', function() {
         allTasks[id].toggleDone()
+        localStorage.setItem(`storedData`, JSON.stringify(allProjects))
     })
     checkButton.addEventListener(`change`, refreshProjectProgress)
     return checkButton

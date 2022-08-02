@@ -11,9 +11,8 @@ function taskFactory(title, priority, id, done = false) {
     return { title, done, priority, id, toggleDone }
 }
 
-function createTask(title, priority) {
-    allTasks.push(taskFactory(title, priority, allTasks.length))
-
+function createTask(title, priority, done = false) {
+    allTasks.push(taskFactory(title, priority, allTasks.length, done))
 }
 
 function changeTaskData(elements) {
