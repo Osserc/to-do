@@ -1,10 +1,9 @@
 import { allProjects, currentProject, addProject, changeCurrentProject, deleteProject, initializeCurrentProject } from "../buildProject"
-import { showTaskAll, showTask, wipeTasks } from "./domTask"
+import { showTaskAll, showTask } from "./domTask"
 import { buildEditButton } from "./domTaskShared"
-import { showForm, buildForm } from "./domForms"
-import { addTask, allTasks, refreshAllTasks } from "../buildTask"
+import { buildForm } from "./domForms"
+import { addTask, refreshAllTasks } from "../buildTask"
 import * as bootstrap from "bootstrap"
-import { validate } from "schema-utils"
 
 
 function showProject() {

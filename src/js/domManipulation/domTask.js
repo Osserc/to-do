@@ -1,7 +1,6 @@
 import { allTasks } from "../buildTask"
 import { allProjects } from "../buildProject"
 import { determinePriorityColor, buildEditButton } from "./domTaskShared"
-import { showForm } from "./domForms"
 import { refreshProjectProgress } from "./domProject"
 
 const list = document.getElementById(`task-list`)

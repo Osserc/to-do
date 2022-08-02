@@ -1,5 +1,5 @@
 import { currentProject, changeProjectData } from "../buildProject"
-import { determinePriorityColor, buildEditButton, activateEditButton, buttonSwapper } from "./domTaskShared"
+import { determinePriorityColor, buildEditButton } from "./domTaskShared"
 import { allTasks, changeTaskData } from "../buildTask"
 import { allProjects } from "../buildProject"
 import { buildProjectsList } from "./domProject"
