@@ -1,10 +1,6 @@
 import { allProjects, currentProject } from "./buildProject"
 
 let allTasks = []
-if ((allProjects.length > 0) && (allProjects.some((project) => project != null))) {
-    allTasks = allProjects.find((project) => project != null).tasks
-}
-
 
 function taskFactory(title, priority, id, done = false) {
 
@@ -17,6 +13,7 @@ function taskFactory(title, priority, id, done = false) {
 
 function createTask(title, priority) {
     allTasks.push(taskFactory(title, priority, allTasks.length))
+
 }
 
 function changeTaskData(elements) {
@@ -36,6 +33,9 @@ function addTask(elements) {
     let values = collectValues(elements)
     if (validateData(values) == false) return false
     createTask(values.title, values.priority)
+    console.log(JSON.parse(localStorage.getItem(`storedData`)))
+    localStorage.setItem(`storedData`, JSON.stringify(allProjects))
+    console.log(JSON.parse(localStorage.getItem(`storedData`)))
 }
 
 function validateData(values) {
@@ -50,7 +50,7 @@ function substituteTaskData(values) {
     singleTask.priority = values.priority
 }
 
-function changeAllTasks() {
+function refreshAllTasks() {
     if (currentProject == null) {
         allTasks = []
     } else {
@@ -58,15 +58,4 @@ function changeAllTasks() {
     }
 }
 
-createTask(`Buy wood`, `Urgent`)
-createTask(`Repair workbench`, `Urgent`)
-createTask(`Assemble tools`, `Trivial`)
-createTask(`Get back planer`, `Pressing`)
-createTask(`Put away ladder`, `Pressing`)
-createTask(`Prepare snake juice`, `Trivial`)
-createTask(`Make chicharrones`, `Trivial`)
-allTasks[0].done = true
-allTasks[2].done = true
-allTasks[3].done = true
-
-export { allTasks, changeTaskData, addTask, changeAllTasks }
+export { allTasks, changeTaskData, addTask, refreshAllTasks, createTask }

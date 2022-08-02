@@ -102,6 +102,7 @@ function buildPriority(priority, id) {
 function removeTask(id) {
     const singleTask = document.getElementById(`single-task-${id}`)
     allTasks[id] = null
+    localStorage.setItem(`storedData`, JSON.stringify(allProjects))
     singleTask.remove()
     refreshProjectProgress()
 }
@@ -109,7 +110,5 @@ function removeTask(id) {
 function wipeTasks() {
     list.replaceChildren()
 }
-
-showTaskAll()
 
 export { showTaskAll, showTask, wipeTasks }

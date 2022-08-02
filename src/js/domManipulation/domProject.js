@@ -1,8 +1,8 @@
-import { allProjects, currentProject, addProject, changeCurrentProject, deleteProject } from "../buildProject"
+import { allProjects, currentProject, addProject, changeCurrentProject, deleteProject, initializeCurrentProject } from "../buildProject"
 import { showTaskAll, showTask, wipeTasks } from "./domTask"
 import { buildEditButton } from "./domTaskShared"
 import { showForm, buildForm } from "./domForms"
-import { addTask, allTasks, changeAllTasks } from "../buildTask"
+import { addTask, allTasks, refreshAllTasks } from "../buildTask"
 import * as bootstrap from "bootstrap"
 import { validate } from "schema-utils"
 
@@ -199,23 +199,21 @@ function initializeCanvas() {
 
 function removeProject(id) {
     deleteProject(id)
-    if (currentProject.id == id) {
-        changeCurrentProject()
+    if ((currentProject != null) && (currentProject.id == id)) {
+        initializeCurrentProject()
         showProject()
-        changeAllTasks()
+        refreshAllTasks()
         showTaskAll()
     }
+    localStorage.setItem(`storedData`, JSON.stringify(allProjects))
     buildProjectsList()
 }
 
 function selectProject(id) {
     changeCurrentProject(id)
-    changeAllTasks()
+    refreshAllTasks()
     showProject()
     showTaskAll()
 }
 
-showProject()
-initializeCanvas()
-
-export { refreshProjectProgress }
+export { refreshProjectProgress, showProject, initializeCanvas, buildProjectsList }

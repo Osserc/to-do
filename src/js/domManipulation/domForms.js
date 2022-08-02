@@ -2,6 +2,7 @@ import { currentProject, changeProjectData } from "../buildProject"
 import { determinePriorityColor, buildEditButton, activateEditButton, buttonSwapper } from "./domTaskShared"
 import { allTasks, changeTaskData } from "../buildTask"
 import { allProjects } from "../buildProject"
+import { buildProjectsList } from "./domProject"
 
 function showForm(type, action, id = null) {
     if (type == `Project`) {
@@ -183,6 +184,7 @@ function activateEditForm(type, action, id = null) {
             document.getElementById(`project-edit-container`).remove()
             const button = document.getElementById(`button-edit-project`)
             button.replaceWith(buildEditButton(`Project`))
+            buildProjectsList()
         } else {
             changeTaskData(event.target.elements)
             refreshTaskData(id)
@@ -190,6 +192,7 @@ function activateEditForm(type, action, id = null) {
             const button = document.getElementById(`button-edit-${id}`)
             button.replaceWith(buildEditButton(`Task`, id))
         }
+        localStorage.setItem(`storedData`, JSON.stringify(allProjects))
     })
 }
 
@@ -207,6 +210,7 @@ function refreshProjectData() {
     title.innerHTML = currentProject.title
     const date = document.getElementById(`project-date`)
     date.innerHTML = currentProject.dateFormatted()
+
 }
 
 function removeClassByPrefix(element, prefix) {

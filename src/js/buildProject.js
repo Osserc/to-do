@@ -1,3 +1,8 @@
+import { refreshAllTasks } from "./buildTask"
+
+let allProjects = []
+let currentProject = null
+
 function projectFactory(title, dueDate, id, tasks = []) {
 
     function dateFormatted() {
@@ -27,6 +32,7 @@ function addProject(elements) {
     let values = collectValues(elements)
     if (validateData(values) == false) return false
     createProject(values.title, new Date(values.dueDate))
+    localStorage.setItem(`storedData`, JSON.stringify(allProjects))
 }
 
 function validateData(values) {
@@ -46,21 +52,22 @@ function deleteProject(id) {
     allProjects[id] = null
 }
 
-function changeCurrentProject(id) {
-    if (allProjects.every((project) => project == null)) {
+function changeCurrentProject(id = null) {
+    if ((currentProject == null) && (allProjects.every((project) => project == null))) {
         currentProject = null
-    } else {
+        localStorage.removeItem(`currentProjectId`)
+    } else if (id != null) {
         currentProject = allProjects[id]
+        localStorage.setItem(`currentProjectId`, currentProject.id)
+        refreshAllTasks()
+    }
+}
+function initializeCurrentProject() {
+    if ((allProjects.length > 0) && (allProjects.some((project) => project != null))) {
+        currentProject = allProjects.find((project) => project != null)
+    } else {
+        currentProject = null
     }
 }
 
-let allProjects = []
-createProject(`Build a doghouse`, new Date(`March 5, 2023`))
-
-let currentProject = null
-if ((allProjects.length > 0) && (allProjects.some((project) => project != null))) {
-    currentProject = allProjects.find((project) => project != null)
-}
-
-
-export { allProjects, currentProject, addProject, changeProjectData, changeCurrentProject, deleteProject }
+export { allProjects, currentProject, addProject, changeProjectData, changeCurrentProject, deleteProject, createProject, initializeCurrentProject }
