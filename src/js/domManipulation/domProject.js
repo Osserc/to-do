@@ -4,6 +4,7 @@ import { buildEditButton } from "./domTaskShared"
 import { showForm, buildForm } from "./domForms"
 import { addTask, allTasks, changeAllTasks } from "../buildTask"
 import * as bootstrap from "bootstrap"
+import { validate } from "schema-utils"
 
 
 function showProject() {
@@ -112,21 +113,23 @@ function prepareModal(type, action) {
     form.addEventListener(`submit`, function() {
         event.preventDefault()
         if (type == `Project`) {
-            successfulProjectCreation(event)
+            newProjectRoute(event)
         } else {
-            successfulTaskCreation(event)
+            newTaskRoute(event)
         }  
     })
 }
 
-function successfulProjectCreation(event) {
-    addProject(event.target.elements)
+function newProjectRoute(event) {
+    let check = addProject(event.target.elements)
+    if (check == false) return
     bootstrap.Modal.getInstance(document.getElementById(`multipurposeModal`)).hide()
     buildProjectsList()
 }
 
-function successfulTaskCreation(event) {
-    addTask(event.target.elements)
+function newTaskRoute(event) {
+    let check = addTask(event.target.elements)
+    if (check == false) return
     bootstrap.Modal.getInstance(document.getElementById(`multipurposeModal`)).hide()
     let task = currentProject.tasks[currentProject.tasks.length - 1]
     showTask(task)

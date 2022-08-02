@@ -43,7 +43,7 @@ function buildForm(type, action, id = null) {
         } else {
             form.id = `project-edit-form`
         }
-        form.append(buildFormTitle(id), buildFormDate(), buildFormButton())
+        form.append(buildFormTitle(type, action), buildFormDate(), buildFormButton())
     } else {
         if (action == `New`) {
             form.id = `task-${id}-new-form`

@@ -34,7 +34,12 @@ function collectValues(elements) {
 
 function addTask(elements) {
     let values = collectValues(elements)
+    if (validateData(values) == false) return false
     createTask(values.title, values.priority)
+}
+
+function validateData(values) {
+    if (values.title == ``) return false
 }
 
 function substituteTaskData(values) {

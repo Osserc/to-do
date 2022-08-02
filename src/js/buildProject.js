@@ -25,7 +25,12 @@ function collectValues(elements) {
 
 function addProject(elements) {
     let values = collectValues(elements)
-    createProject(values.title, values.dueDate)
+    if (validateData(values) == false) return false
+    createProject(values.title, new Date(values.dueDate))
+}
+
+function validateData(values) {
+    if ((values.title == ``) || (values.dueDate == ``)) return false
 }
 
 function substituteProjectData(values) {
